@@ -12,6 +12,8 @@ export const signUpController = async (req, res) => {
       email: signUpData.email,
       password: hashedPassword,
       fullname: signUpData.fullname,
+      aboutYou: signUpData.aboutYou,
+      profilePicUrl: signUpData.profilePicUrl || "",
     });
 
     res.json({
@@ -60,6 +62,7 @@ export const signInController = async (req, res) => {
         email: userExist.email,
         username: userExist.username,
         fullname: userExist.fullname,
+        userId: userExist._id,
       },
       process.env.JWT_SECRET,
       {

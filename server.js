@@ -4,6 +4,8 @@ import cors from "cors";
 import authRouter from "./routes/auth-routes.js";
 import dotenv from "dotenv";
 import { databaseConnector } from "./database/database-connector.js";
+import homeRouter from "./routes/home-routes.js";
+import { authMiddleware } from "./middlewares/auth-middleware.js";
 dotenv.config();
 
 // Initialize Express app
@@ -25,6 +27,7 @@ app.use(
 const server = http.createServer(app);
 
 app.use("/api/auth", authRouter);
+app.use("/api/home", authMiddleware, homeRouter);
 
 // Server Port
 const PORT = process.env.PORT || 5000;
