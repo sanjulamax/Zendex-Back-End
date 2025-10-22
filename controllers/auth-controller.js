@@ -63,6 +63,7 @@ export const signInController = async (req, res) => {
         username: userExist.username,
         fullname: userExist.fullname,
         userId: userExist._id,
+        profilePicUrl: userExist.profilePicUrl,
       },
       process.env.JWT_SECRET,
       {
