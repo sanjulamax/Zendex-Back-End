@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import { databaseConnector } from "./database/database-connector.js";
 import homeRouter from "./routes/home-routes.js";
 import { authMiddleware } from "./middlewares/auth-middleware.js";
+import { Server } from "socket.io";
+import { socketController } from "./socket-controllers/socket-controller.js";
 dotenv.config();
 
 // Initialize Express app
@@ -25,6 +27,16 @@ app.use(
 );
 // Create HTTP server
 const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  },
+});
+
+socketController(io);
 
 app.use("/api/auth", authRouter);
 app.use("/api/home", authMiddleware, homeRouter);
