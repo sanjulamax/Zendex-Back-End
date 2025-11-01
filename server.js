@@ -8,6 +8,7 @@ import homeRouter from "./routes/home-routes.js";
 import { authMiddleware } from "./middlewares/auth-middleware.js";
 import { Server } from "socket.io";
 import { socketController } from "./socket-controllers/socket-controller.js";
+import chatRouter from "./routes/chat-routes.js";
 dotenv.config();
 
 // Initialize Express app
@@ -40,6 +41,7 @@ socketController(io);
 
 app.use("/api/auth", authRouter);
 app.use("/api/home", authMiddleware, homeRouter);
+app.use("/api/chat", authMiddleware, chatRouter);
 
 // Server Port
 const PORT = process.env.PORT || 5000;
