@@ -7,6 +7,13 @@ const userSchema = new mongoose.Schema({
   fullname: { type: String, required: true },
   profilePicUrl: { type: String, default: "" },
   aboutYou: { type: String, default: "" },
+  chatList: [
+    {
+      chatUserId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      updatedTime: { type: Date, default: Date.now },
+      lastMessage: { type: String, default: "" },
+    },
+  ],
 });
 
 const userModel = mongoose.model("User", userSchema);

@@ -13,6 +13,7 @@ export const signUpController = async (req, res) => {
       password: hashedPassword,
       fullname: signUpData.fullname,
       aboutYou: signUpData.aboutYou,
+      chatList: [],
       profilePicUrl: signUpData.profilePicUrl || "",
     });
 
