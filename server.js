@@ -21,7 +21,7 @@ databaseConnector();
 // CORS configuration for CORS issues
 app.use(
   cors({
-    origin: "https://zendex-front-end.vercel.app",
+    origin: ["https://zendex-front-end.vercel.app", "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -31,7 +31,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://zendex-front-end.vercel.app",
+    origin: ["https://zendex-front-end.vercel.app", "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   },
