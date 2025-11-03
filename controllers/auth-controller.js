@@ -64,7 +64,10 @@ export const signInController = async (req, res) => {
         username: userExist.username,
         fullname: userExist.fullname,
         userId: userExist._id,
+        aboutYou: userExist.aboutYou,
         profilePicUrl: userExist.profilePicUrl,
+        createdAt: userExist.createdAt,
+        updatedAt: userExist.updatedAt,
       },
       process.env.JWT_SECRET,
       {
@@ -89,6 +92,35 @@ export const signInController = async (req, res) => {
       data: e,
       success: false,
       token: null,
+    });
+  }
+};
+
+export const profileUpdator = async (req, res) => {
+  const updateDetails = req.body;
+  try {
+    const updatedUser = await userModel.findByIdAndUpdate(
+      updateDetails.userId,
+      {
+        fullname: updateDetails.fullname,
+        profilePicUrl: updateDetails.profilePicUrl,
+        aboutYou: updateDetails.aboutYou,
+      },
+      { new: true }
+    );
+
+    console.log("Updated User:", updatedUser);
+    res.json({
+      message: "User Profile Updated Successfully",
+      data: updatedUser,
+      success: true,
+    });
+  } catch (e) {
+    console.log("Error Occured", e);
+    res.json({
+      message: "Error Occured While Updating Profile",
+      data: e,
+      success: false,
     });
   }
 };

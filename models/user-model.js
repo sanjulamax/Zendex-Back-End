@@ -14,6 +14,8 @@ const userSchema = new mongoose.Schema({
       lastMessage: { type: String, default: "" },
     },
   ],
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
 const userModel = mongoose.model("User", userSchema);
