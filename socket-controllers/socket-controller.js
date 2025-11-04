@@ -8,6 +8,12 @@ export const socketController = (io) => {
     console.log("User Connected", socket.handshake.auth.sender);
     io.emit("users_connected", socket.handshake.auth.sender);
 
+    socket.on("delete_message", (messageId) => {
+      console.log("Delete Message Requested:", messageId);
+      const result = io.emit("message_deleted", messageId);
+      console.log("msg delete event result", result);
+    });
+
     socket.on("send_message", (message) => {
       console.log("Message Received", message);
       console.log("Sending to:", socket.handshake.auth.recipient);

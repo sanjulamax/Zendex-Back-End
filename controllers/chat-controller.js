@@ -33,6 +33,34 @@ export const saveMessageToDb = async (req, res) => {
   }
 };
 
+export const deleteMessageFromDb = async (req, res) => {
+  const { messageId } = req.body;
+
+  try {
+    const deletedMessage = await chatModel.findByIdAndDelete(messageId);
+
+    if (!deletedMessage) {
+      return res.json({
+        message: "Message Not Found",
+        data: null,
+        success: false,
+      });
+    }
+
+    res.json({
+      message: "Message Deleted Successfully",
+      data: deletedMessage,
+      success: true,
+    });
+  } catch (e) {
+    res.json({
+      message: "Error Occured While Deleting Message",
+      data: e,
+      success: false,
+    });
+  }
+};
+
 export const getChatsFromDb = async (req, res) => {
   const inboxData = req.body;
   console.log("get msg inboxData", inboxData);
