@@ -14,6 +14,8 @@ export const signUpController = async (req, res) => {
       fullname: signUpData.fullname,
       aboutYou: signUpData.aboutYou,
       chatList: [],
+      onlineState: false,
+      lastSeen: Date.now(),
       profilePicUrl: signUpData.profilePicUrl || "",
     });
 
@@ -119,6 +121,33 @@ export const profileUpdator = async (req, res) => {
     console.log("Error Occured", e);
     res.json({
       message: "Error Occured While Updating Profile",
+      data: e,
+      success: false,
+    });
+  }
+};
+
+export const getOnlineState = async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const user = await userModel.findById(userId).select("onlineState");
+    if (!user) {
+      return res.json({
+        message: "User Not Found",
+        data: null,
+        success: false,
+      });
+    }
+    console.log("Online State Retrieved:", user);
+    res.json({
+      message: "Online State Retrieved Successfully",
+      data: user,
+      success: true,
+    });
+  } catch (e) {
+    console.log("Error Occured", e);
+    res.json({
+      message: "Error Occured While Retrieving Last Seen State",
       data: e,
       success: false,
     });

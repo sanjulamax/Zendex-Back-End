@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getOnlineState,
   profileUpdator,
   signInController,
   signUpController,
@@ -12,5 +13,6 @@ authRouter.post("/signup", signUpController);
 authRouter.post("/signin", signInController);
 authRouter.get("/authscreenprotector", authScreenProtector);
 authRouter.post("/updateprofile", profileUpdator);
+authRouter.post("/getonlinestate", getOnlineState);
 
 export default authRouter;
